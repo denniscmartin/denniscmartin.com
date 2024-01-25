@@ -12,3 +12,7 @@ go.work
 web/node_modules
 web/.parcel-cache
 web/dist
+
+# Project
+web/src/articles/*
+!web/src/articles/.gitkeep
