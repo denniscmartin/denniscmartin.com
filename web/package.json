@@ -1,7 +1,7 @@
 {
     "name": "web",
     "version": "1.0.0",
-    "source": "src/index.html",
+    "source": "out/index.html",
     "scripts": {
         "start": "parcel",
         "build": "parcel build"

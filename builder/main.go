@@ -2,18 +2,17 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"strings"
 )
 
-type ArticleData struct {
+type ArticleItem struct {
 	Description string
 	Date        string
 	Url         string
 }
 
 func main() {
-	var articles []ArticleData
+	var articles []ArticleItem
 	inputArticlesDir := readInputArticlesDir()
 
 	for _, inputArticleEntry := range inputArticlesDir {
@@ -29,7 +28,7 @@ func main() {
 		inputArticle := openInputArticle(inputArticleEntry.Name())
 		defer inputArticle.Close()
 
-		articleData := ArticleData{Url: url}
+		articleData := ArticleItem{Url: url}
 		inputArticleScanner := bufio.NewScanner(inputArticle)
 		readingMetadata := false
 
@@ -107,22 +106,19 @@ func main() {
 
 		articles = append(articles, articleData)
 
-		indexFile := openIndex()
-		defer indexFile.Close()
+		var htmlArticlesList string
 
-		writeArticlesList := false
-		indexScanner := bufio.NewScanner(indexFile)
-
-		for indexScanner.Scan() {
-			if writeArticlesList {
-				
-			}
-			
-			line := indexScanner.Text()
-
-			if strings.Contains(line, "ul class=\"articles\"") {
-				fmt.Print(line)
-			}
+		for _, article := range articles {
+			htmlArticlesList += createArticleListItem(article)
 		}
+
+		indexContent := readInputIndex()
+		newIndexContent := strings.ReplaceAll(indexContent, "{{ARTICLES}}", htmlArticlesList)
+
+		if indexContent == newIndexContent {
+			panic("articles list not generated")
+		}
+
+		writeOutputIndex(newIndexContent)
 	}
 }

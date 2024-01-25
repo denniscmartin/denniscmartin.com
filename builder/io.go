@@ -8,36 +8,27 @@ import (
 	"strings"
 )
 
-const indexFilename = "../web/src/index.html"
-const articlesPath = "../web/articles"
-const outputPath = "../web/src/articles"
+const inputIndexFilename = "../web/templates/index.html"
+const outputIndexFilename = "../web/out/index.html"
+const inputArticlesDir = "../web/articles"
+const outputArticlesDir = "../web/out/articles"
 
 func readInputArticlesDir() []fs.DirEntry {
-	inputArticles, err := os.ReadDir(articlesPath)
+	files, err := os.ReadDir(inputArticlesDir)
 
 	if err != nil {
 		panic(err)
 	}
 
-	sort.Slice(inputArticles, func(i, j int) bool {
-		return inputArticles[i].Name() < inputArticles[j].Name()
+	sort.Slice(files, func(i, j int) bool {
+		return files[i].Name() < files[j].Name()
 	})
 
-	return inputArticles
+	return files
 }
 
 func openInputArticle(filename string) *os.File {
-	inputArticle, err := os.Open(fmt.Sprintf("%s/%s", articlesPath, filename))
-
-	if err != nil {
-		panic(err)
-	}
-
-	return inputArticle
-}
-
-func openIndex() *os.File {
-	file, err := os.Open(indexFilename)
+	file, err := os.Open(fmt.Sprintf("%s/%s", inputArticlesDir, filename))
 
 	if err != nil {
 		panic(err)
@@ -46,13 +37,31 @@ func openIndex() *os.File {
 	return file
 }
 
-func createOutputArticle(filename string) (*os.File, string) {
-	outputFilename := strings.ReplaceAll(filename, ".md", ".html")
-	outputArticle, err := os.Create(fmt.Sprintf("%s/%s", outputPath, outputFilename))
+func readInputIndex() string {
+	content, err := os.ReadFile(inputIndexFilename)
 
 	if err != nil {
 		panic(err)
 	}
 
-	return outputArticle, fmt.Sprintf("articles/%s", outputFilename)
+	return string(content)
+}
+
+func writeOutputIndex(content string) {
+	err := os.WriteFile(outputIndexFilename, []byte(content), 0755)
+
+	if err != nil {
+		panic(err)
+	}
+}
+
+func createOutputArticle(filename string) (*os.File, string) {
+	outFilename := strings.ReplaceAll(filename, ".md", ".html")
+	file, err := os.Create(fmt.Sprintf("%s/%s", outputArticlesDir, outFilename))
+
+	if err != nil {
+		panic(err)
+	}
+
+	return file, fmt.Sprintf("articles/%s", outFilename)
 }

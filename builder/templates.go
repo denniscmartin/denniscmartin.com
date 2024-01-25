@@ -63,3 +63,9 @@ func createLink(url string) string {
 <a href=%s>%s</a>
 `, url, url)
 }
+
+func createArticleListItem(article ArticleItem) string {
+	return fmt.Sprintf(`
+<li>%s: <a href="%s">%s</a></li>	
+`, article.Date, article.Url, article.Description)
+}
