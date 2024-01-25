@@ -60,7 +60,7 @@ func createHeader(title string) string {
 
 func createLink(url string) string {
 	return fmt.Sprintf(`
-<a href=%s>%s</a>
+<a href=%s target="_blank">%s</a>
 `, url, url)
 }
 

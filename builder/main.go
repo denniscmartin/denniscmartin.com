@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"sort"
 	"strings"
 )
 
@@ -14,6 +15,10 @@ type ArticleItem struct {
 func main() {
 	var articles []ArticleItem
 	inputArticlesDir := readInputArticlesDir()
+
+	sort.Slice(inputArticlesDir, func(i, j int) bool {
+		return inputArticlesDir[i].Name() > inputArticlesDir[j].Name()
+	})
 
 	for _, inputArticleEntry := range inputArticlesDir {
 		outputArticle, url := createOutputArticle(inputArticleEntry.Name())
