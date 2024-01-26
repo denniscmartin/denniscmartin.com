@@ -4,10 +4,10 @@ DATE=28/04/2021
 +++
 ## Installation
 
-- In Xcode go to File -> Swift packages -> Add package dependency
-- Copy and paste {{LINK=https://github.com/denniscmartin/stock-charts.git}}
+- In Xcode go to `File` -> `Swift packages` -> `Add package dependency`
+- Copy and paste <https://github.com/denniscmartin/stock-charts.git>
 
-I’ve created a demo app using StockCharts. Trades app source code: {{LINK=https://github.com/denniscmartin/trades-demo}}
+I've created a demo app using StockCharts. Trades app source code: <https://github.com/denniscmartin/trades-demo>
 
 ### Usage
 
@@ -52,7 +52,6 @@ LineChartView(
 #### Capsule chart
 
 ```swift
-
 CapsuleChartView(percentageOfWidth: CGFloat)
 // percentageOfWidth: must be 0 <= x <= 1
 

@@ -55,15 +55,28 @@ type PatternsTable struct {
 
 type Pattern struct {
 	regex   string
-	convert func(matches []string) string
+	convertToHtml func(matches []string) string
 }
 
 var patternsTable = PatternsTable{
 	patterns: map[string]Pattern{
 		"MD_LINK": {
 			regex: `\[(.+?)\]\((.+?)\)`,
-			convert: func(matches []string) string {
+			convertToHtml: func(matches []string) string {
 				return fmt.Sprintf(`<a href="%s" target="_blank">%s</a>`, matches[2], matches[1])
+			},
+		},
+		"MD_LINK_SIMPLE": {
+			regex: `(?m)<([^>]+)>`,
+			convertToHtml: func(matches []string) string {
+				return fmt.Sprintf(`<a href="%s" target="_blank">%s</a>`, matches[1], matches[1])
+			},
+		},
+		"MD_HEADING": {
+			regex: `(?m)^(#{1,6}) (.+)$`,
+			convertToHtml: func(matches []string) string {
+				headingCount := len(matches[1])
+				return fmt.Sprintf(`<h%d>%s</h%d>`, headingCount, matches[2], headingCount)
 			},
 		},
 	},
@@ -111,45 +124,40 @@ func main() {
 			}
 		}
 
-		mdArticle := inputArticle[1]
+		// TODO: Wont work on linux
+		body := strings.TrimSpace(inputArticle[1])
+		paragraphs := strings.Split(body, "\r\n\r\n")
+		var htmlBody string
 
-		for _, regexPattern := range patternsTable.patterns {
-			reg := regexp.MustCompile(regexPattern.regex)
-			submatches := reg.FindAllStringSubmatch(mdArticle, -1)
+		for _, paragraph := range paragraphs {
+			var submatchesCounter int
 
-			if len(submatches) > 0 {
+			for _, regexPattern := range patternsTable.patterns {
+				reg := regexp.MustCompile(regexPattern.regex)
+				submatches := reg.FindAllStringSubmatch(paragraph, -1)
+				submatchesCounter += len(submatches)
+
 				for _, matches := range submatches {
-					newStr := regexPattern.convert(matches)
-					mdArticle = strings.ReplaceAll(mdArticle, matches[0], newStr)
+					htmlTag := regexPattern.convertToHtml(matches)
+					htmlParagraph := strings.ReplaceAll(paragraph, matches[0], htmlTag)
+
+					if strings.HasPrefix(htmlParagraph, "<h") {
+						htmlBody += htmlParagraph
+					} else {
+						htmlBody += `<p>`
+						htmlBody += htmlParagraph
+						htmlBody += `</p>`
+					}
 				}
 			}
-		}
 
-		mdArticle = strings.TrimSpace(mdArticle)
-
-		bodyScanner := bufio.NewScanner(strings.NewReader(mdArticle))
-		var lineCounter int
-		var htmlArticle string
-
-		for bodyScanner.Scan() {
-			line := bodyScanner.Text()
-
-			if lineCounter == 0 {
-				htmlArticle += `<p>`
+			if submatchesCounter == 0 {
+				htmlBody += paragraph
 			}
-
-			if line == "" {
-				htmlArticle += `</p><p>`
-			}
-
-			htmlArticle += line
-			lineCounter++
 		}
-
-		htmlArticle += `</p>`
 
 		article.HtmlContent = strings.ReplaceAll(HTML_ARTICLE_TEMPLATE, "{{TITLE}}", article.Title)
-		article.HtmlContent = strings.ReplaceAll(article.HtmlContent, "{{ARTICLE}}", htmlArticle)
+		article.HtmlContent = strings.ReplaceAll(article.HtmlContent, "{{ARTICLE}}", htmlBody)
 		outArticle, url := createOutArticle(inputArticleEntry.Name())
 		article.Url = url
 		outArticle.WriteString(article.HtmlContent)

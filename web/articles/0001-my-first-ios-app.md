@@ -6,4 +6,4 @@ Lazybear is my first iOS app and programming project. It was a stock tracker. Yo
 
 As a side note, I managed to actually publish the app to the App Store (it's no longer published). It was awesome to see your first app in the App Store.
 
-Code: [Github](https://github.com/denniscmartin/lazybear)
+Code: <https://github.com/denniscmartin/lazybear>
