@@ -1,4 +1,3 @@
-+++
 TITLE=My first open source project
 DESCRIPTION=A library to display interactive charts in SwiftUI
 DATE=28/04/2021

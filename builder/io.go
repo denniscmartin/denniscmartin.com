@@ -8,13 +8,13 @@ import (
 	"strings"
 )
 
-const inputIndexFilename = "../web/templates/index.html"
-const outputIndexFilename = "../web/out/index.html"
-const inputArticlesDir = "../web/articles"
-const outputArticlesDir = "../web/out/articles"
+const IN_INDEX_FILE = "../web/templates/index.html"
+const OUT_INDEX_FILE = "../web/out/index.html"
+const IN_ARTICLES_DIR = "../web/articles"
+const OUT_ARTICLES_DIR = "../web/out/articles"
 
-func readInputArticlesDir() []fs.DirEntry {
-	files, err := os.ReadDir(inputArticlesDir)
+func readInArticlesDir() []fs.DirEntry {
+	files, err := os.ReadDir(IN_ARTICLES_DIR)
 
 	if err != nil {
 		panic(err)
@@ -27,18 +27,8 @@ func readInputArticlesDir() []fs.DirEntry {
 	return files
 }
 
-func openInputArticle(filename string) *os.File {
-	file, err := os.Open(fmt.Sprintf("%s/%s", inputArticlesDir, filename))
-
-	if err != nil {
-		panic(err)
-	}
-
-	return file
-}
-
-func readInputIndex() string {
-	content, err := os.ReadFile(inputIndexFilename)
+func readInArticle(filename string) string {
+	content, err := os.ReadFile(fmt.Sprintf("%s/%s", IN_ARTICLES_DIR, filename))
 
 	if err != nil {
 		panic(err)
@@ -47,17 +37,27 @@ func readInputIndex() string {
 	return string(content)
 }
 
-func writeOutputIndex(content string) {
-	err := os.WriteFile(outputIndexFilename, []byte(content), 0755)
+func readInIndexFile() string {
+	content, err := os.ReadFile(IN_INDEX_FILE)
+
+	if err != nil {
+		panic(err)
+	}
+
+	return string(content)
+}
+
+func writeOutIndexFile(content string) {
+	err := os.WriteFile(OUT_INDEX_FILE, []byte(content), 0755)
 
 	if err != nil {
 		panic(err)
 	}
 }
 
-func createOutputArticle(filename string) (*os.File, string) {
+func createOutArticle(filename string) (*os.File, string) {
 	outFilename := strings.ReplaceAll(filename, ".md", ".html")
-	file, err := os.Create(fmt.Sprintf("%s/%s", outputArticlesDir, outFilename))
+	file, err := os.Create(fmt.Sprintf("%s/%s", OUT_ARTICLES_DIR, outFilename))
 
 	if err != nil {
 		panic(err)
