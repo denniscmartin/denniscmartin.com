@@ -1,20 +1,20 @@
 +++
 TITLE=My first open source project
-DESCRIPTION=A library to display interactive charts in SwiftUI.
+DESCRIPTION=A library to display interactive charts in SwiftUI
 DATE=28/04/2021
 +++
-# Installation
+## Installation
 
 - In Xcode go to File -> Swift packages -> Add package dependency
 - Copy and paste {{LINK=https://github.com/denniscmartin/stock-charts.git}}
 
 I’ve created a demo app using StockCharts. Trades app source code: {{LINK=https://github.com/denniscmartin/trades-demo}}
 
-## Usage
+### Usage
 
 import StockCharts
 
-### Line chart
+#### Line chart
 
 ```swift
 let lineChartController = LineChartController(prices: [Double])
@@ -50,7 +50,7 @@ LineChartView(
 )
 ```
 
-### Capsule chart
+#### Capsule chart
 
 ```swift
 

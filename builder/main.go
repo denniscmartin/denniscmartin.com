@@ -7,6 +7,7 @@ import (
 )
 
 type ArticleItem struct {
+	Title       string
 	Description string
 	Date        string
 	Url         string
@@ -35,21 +36,17 @@ func main() {
 
 		articleData := ArticleItem{Url: url}
 		inputArticleScanner := bufio.NewScanner(inputArticle)
-		readingMetadata := false
+		readingMetadata := true
 
 		for inputArticleScanner.Scan() {
 			lineStr := inputArticleScanner.Text()
 
-			if lineStr == "+++" {
-				if readingMetadata {
-					readingMetadata = false
-				} else {
-					readingMetadata = true
-				}
-
+			if lineStr == METADATA_END {
+				readingMetadata = false
 				continue
 			}
 
+			// Parse metadata
 			if readingMetadata {
 				iEqual := strings.Index(lineStr, "=")
 
@@ -57,51 +54,29 @@ func main() {
 					panicInvalidLine(lineStr, inputArticleEntry.Name())
 				}
 
-				tag := lineStr[:iEqual]
 				value := lineStr[iEqual+1:]
 
-				switch tag {
-				case "TITLE":
-					outputArticle.WriteString(createHeader(value))
-				case "DESCRIPTION":
+				switch tag := lineStr[:iEqual]; tag {
+				case METADATA_TITLE:
+					articleData.Title = value
+				case METADATA_DESCR:
 					articleData.Description = value
-				case "DATE":
+				case METADATA_DATE:
 					articleData.Date = value
 				default:
 					panicInvalidLine(lineStr, inputArticleEntry.Name())
 				}
 			} else {
-				if iStart := strings.Index(lineStr, "{{"); iStart != -1 {
-					iEnd := strings.Index(lineStr, "}}")
-					iEqual := strings.Index(lineStr, "=")
+				// Parse markdown body
+				lineRunes := []rune(lineStr)
 
-					if iEnd == -1 || iEqual == -1 {
-						panicInvalidLine(lineStr, outputArticle.Name())
+				for i, r := range lineRunes {
+					switch r {
+					case '#':
+
 					}
-
-					outputArticle.WriteString(lineStr[:iStart])
-
-					tag := lineStr[iStart+2 : iEqual]
-					value := lineStr[iEqual+1 : iEnd]
-
-					switch tag {
-					case "IMAGE":
-						panic("not implemented")
-					case "LINK":
-						outputArticle.WriteString(createLink(value))
-					case "FILE":
-						panic("not implemented")
-					}
-
-					outputArticle.WriteString(lineStr[iEnd+2:])
-				} else {
-					if lineStr == "" {
-						outputArticle.WriteString(breakLine)
-						outputArticle.WriteString(breakLine)
-					}
-
-					outputArticle.WriteString(lineStr)
 				}
+
 			}
 		}
 
