@@ -9,36 +9,15 @@ import (
 )
 
 const (
-	METADATA_END          = "+++"
-	METADATA_TITLE        = "TITLE"
-	METADATA_DESCR        = "DESCRIPTION"
-	METADATA_DATE         = "DATE"
-	HTML_ARTICLE_TEMPLATE = `
-	<!doctype html>
-	<html>
-		<head>
-			<meta charset="UTF-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1.0">
-			<link href="../styles.css" rel="stylesheet">
-			<link rel="preconnect" href="https://fonts.googleapis.com">
-			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-			<link
-				href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
-				rel="stylesheet">
-		</head>
-		<body>
-			<div class="header">
-				<h1 class="title bordered">{{TITLE}}</h1>
-			</div>
-			<nav>
-				<li><a href="/">Go to home</a></li>
-			</nav>
-			<main>
-				{{ARTICLE}}
-			</main>
-		</body>
-	</html>
-	`
+	METADATA_TAG_END   = "+++"
+	METADATA_TAG_TITLE = "TITLE"
+	METADATA_TAG_DESCR = "DESCRIPTION"
+	METADATA_TAG_DATE  = "DATE"
+	TEMPLATE_INDEX     = "../web/templates/index.html"
+	TEMPLATE_ARTICLE   = "../web/templates/article.html"
+	IN_ARTICLES_DIR    = "../web/articles"
+	OUT_INDEX          = "../web/out/index.html"
+	OUT_ARTICLES_DIR   = "../web/out/articles"
 )
 
 type Article struct {
@@ -54,7 +33,7 @@ type PatternsTable struct {
 }
 
 type Pattern struct {
-	regex   string
+	regex         string
 	convertToHtml func(matches []string) string
 }
 
@@ -79,6 +58,53 @@ var patternsTable = PatternsTable{
 				return fmt.Sprintf(`<h%d>%s</h%d>`, headingCount, matches[2], headingCount)
 			},
 		},
+		"MD_CODE_BLOCK": {
+			regex: "```([^`]+?)```",
+			convertToHtml: func(matches []string) string {
+				var html string
+				scanner := bufio.NewScanner(strings.NewReader(matches[1]))
+
+				for scanner.Scan() {
+					line := scanner.Text()
+
+					var counter int
+					var countingIndentation bool
+
+					for i, r := range line {
+						if i == 0 {
+							countingIndentation = true
+						}
+
+						if countingIndentation {
+							if r == ' ' {
+								counter++
+							} else {
+								countingIndentation = false
+								break
+							}
+						}
+					}
+
+					line = strings.TrimSpace(line)
+
+					if counter == 0 {
+						html += line
+					} else {
+						html += fmt.Sprintf(`<span style="margin-left: %dpx">%s</span>`, counter*10, line)
+					}
+
+					html += `<br>`
+				}
+
+				return fmt.Sprintf(`<div class="code-block">%s</div>`, html)
+			},
+		},
+		"MD_CODE_INLINE": {
+			regex: "`([^`]+?)`",
+			convertToHtml: func(matches []string) string {
+				return fmt.Sprintf(`<span class="code-inline">%s</span>`, matches[1])
+			},
+		},
 	},
 }
 
@@ -86,19 +112,54 @@ func panicInvalidLine(line string, filename string) {
 	panic(fmt.Sprintf("invalid line: %s in file %s\n", line, filename))
 }
 
-func main() {
-	inputArticlesDir := readInArticlesDir()
+func splitParagraphs(text string) []string {
+	var paragraphs []string
 
-	sort.Slice(inputArticlesDir, func(i, j int) bool {
-		return inputArticlesDir[i].Name() > inputArticlesDir[j].Name()
+	scanner := bufio.NewScanner(strings.NewReader(text))
+
+	var inCodeBlock bool
+	var paragraph string
+
+	for scanner.Scan() {
+		line := scanner.Text()
+
+		if strings.HasPrefix(line, "```") {
+			inCodeBlock = !inCodeBlock
+			paragraph += line
+			paragraph += "\r\n"
+			continue
+		}
+
+		if line == "" && !inCodeBlock {
+			paragraphs = append(paragraphs, paragraph)
+			paragraph = ""
+			continue
+		}
+
+		paragraph += line
+		// FIXME: Does it works on linux (\r\n\r\n)?
+		paragraph += "\r\n"
+	}
+
+	paragraphs = append(paragraphs, paragraph)
+
+	return paragraphs
+}
+
+func main() {
+	inArticlesDir := readDir(IN_ARTICLES_DIR)
+
+	sort.Slice(inArticlesDir, func(i, j int) bool {
+		return inArticlesDir[i].Name() > inArticlesDir[j].Name()
 	})
 
 	var articles []Article
 
-	for _, inputArticleEntry := range inputArticlesDir {
+	for _, inArticleEntry := range inArticlesDir {
 		var article Article
-		inputArticle := strings.Split(readInArticle(inputArticleEntry.Name()), METADATA_END)
-		metadata := inputArticle[0]
+		inArticle := readFile(fmt.Sprintf("%s/%s", IN_ARTICLES_DIR, inArticleEntry.Name()))
+		inParticleParts := strings.Split(inArticle, METADATA_TAG_END)
+		metadata := inParticleParts[0]
 		metadataScanner := bufio.NewScanner(strings.NewReader(metadata))
 
 		for metadataScanner.Scan() {
@@ -106,61 +167,65 @@ func main() {
 			iEqual := strings.Index(line, "=")
 
 			if iEqual == -1 {
-				panicInvalidLine(line, inputArticleEntry.Name())
+				panicInvalidLine(line, inArticleEntry.Name())
 			}
 
 			tag := line[:iEqual]
 			value := line[iEqual+1:]
 
 			switch tag {
-			case METADATA_TITLE:
+			case METADATA_TAG_TITLE:
 				article.Title = value
-			case METADATA_DESCR:
+			case METADATA_TAG_DESCR:
 				article.Description = value
-			case METADATA_DATE:
+			case METADATA_TAG_DATE:
 				article.Date = value
 			default:
-				panicInvalidLine(line, inputArticleEntry.Name())
+				panicInvalidLine(line, inArticleEntry.Name())
 			}
 		}
 
-		// TODO: Wont work on linux
-		body := strings.TrimSpace(inputArticle[1])
-		paragraphs := strings.Split(body, "\r\n\r\n")
+		body := strings.TrimSpace(inParticleParts[1])
+		paragraphs := splitParagraphs(body)
+		fmt.Println(len(paragraphs))
 		var htmlBody string
 
 		for _, paragraph := range paragraphs {
 			var submatchesCounter int
 
-			for _, regexPattern := range patternsTable.patterns {
-				reg := regexp.MustCompile(regexPattern.regex)
+			htmlParagraph := paragraph
+			for _, pattern := range patternsTable.patterns {
+				reg := regexp.MustCompile(pattern.regex)
 				submatches := reg.FindAllStringSubmatch(paragraph, -1)
 				submatchesCounter += len(submatches)
 
 				for _, matches := range submatches {
-					htmlTag := regexPattern.convertToHtml(matches)
-					htmlParagraph := strings.ReplaceAll(paragraph, matches[0], htmlTag)
-
-					if strings.HasPrefix(htmlParagraph, "<h") {
-						htmlBody += htmlParagraph
-					} else {
-						htmlBody += `<p>`
-						htmlBody += htmlParagraph
-						htmlBody += `</p>`
-					}
+					htmlTag := pattern.convertToHtml(matches)
+					htmlParagraph = strings.ReplaceAll(htmlParagraph, matches[0], htmlTag)
+					paragraph = strings.ReplaceAll(paragraph, matches[0], "")
 				}
 			}
 
 			if submatchesCounter == 0 {
 				htmlBody += paragraph
+			} else {
+				if strings.HasPrefix(htmlParagraph, "<h") || strings.HasPrefix(htmlParagraph, "<div") {
+					htmlBody += htmlParagraph
+				} else {
+					htmlBody += `<p>`
+					htmlBody += htmlParagraph
+					htmlBody += `</p>`
+				}
 			}
 		}
 
-		article.HtmlContent = strings.ReplaceAll(HTML_ARTICLE_TEMPLATE, "{{TITLE}}", article.Title)
+		article.HtmlContent = readFile(TEMPLATE_ARTICLE)
+		article.HtmlContent = strings.ReplaceAll(article.HtmlContent, "{{TITLE}}", article.Title)
 		article.HtmlContent = strings.ReplaceAll(article.HtmlContent, "{{ARTICLE}}", htmlBody)
-		outArticle, url := createOutArticle(inputArticleEntry.Name())
-		article.Url = url
-		outArticle.WriteString(article.HtmlContent)
+		outArticleFilename := strings.ReplaceAll(inArticleEntry.Name(), ".md", ".html")
+		article.Url = fmt.Sprintf("articles/%s", outArticleFilename)
+
+		writeFile(article.HtmlContent, fmt.Sprintf("%s/%s", OUT_ARTICLES_DIR, outArticleFilename))
 
 		articles = append(articles, article)
 	}
@@ -173,7 +238,7 @@ func main() {
 		)
 	}
 
-	htmlIndexTemplate := readInIndexFile()
+	htmlIndexTemplate := readFile(TEMPLATE_INDEX)
 	htmlIndexTemplate = strings.ReplaceAll(htmlIndexTemplate, "{{ARTICLES}}", htmlArticlesList)
-	writeOutIndexFile(htmlIndexTemplate)
+	writeFile(htmlIndexTemplate, OUT_INDEX)
 }

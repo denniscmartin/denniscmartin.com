@@ -4,14 +4,16 @@ DATE=28/04/2021
 +++
 ## Installation
 
-- In Xcode go to `File` -> `Swift packages` -> `Add package dependency`
-- Copy and paste <https://github.com/denniscmartin/stock-charts.git>
+In Xcode go to `File` -> `Swift packages` -> `Add package dependency`
+Copy and paste <https://github.com/denniscmartin/stock-charts.git>
 
 I've created a demo app using StockCharts. Trades app source code: <https://github.com/denniscmartin/trades-demo>
 
 ### Usage
 
+```swift
 import StockCharts
+```
 
 #### Line chart
 
