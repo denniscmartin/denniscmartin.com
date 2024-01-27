@@ -17,7 +17,7 @@ const (
 	TEMPLATE_ARTICLE   = "../web/src/templates/article.html"
 	IN_ARTICLES_DIR    = "../web/src/articles"
 	IN_IMAGES_DIR      = "../web/src/articles/images"
-	OUT_DIR            = "../web/src/out"
+	OUT_DIR            = "../web/out"
 	OUT_INDEX          = "../web/out/index.html"
 	OUT_ARTICLES_DIR   = "../web/out/articles"
 	OUT_IMAGES_DIR     = "../web/out/articles/images"
