@@ -8,7 +8,7 @@ Code: <https://github.com/denniscmartin/hey>
 
 Youtube video: <https://www.youtube.com/watch?v=r3CQ0euv6TQ>
 
-![Network programming thumbnail](./images/network-programming.png)
+![Network programming thumbnail](../static/network-programming.png)
 
 ## Docs
 

@@ -6,38 +6,38 @@ Code: <https://github.com/denniscmartin/logic-led>
 
 ## Schematic
 
-![Schematic](./images/arduino-schema.JPG)
+![Schematic](../static/arduino-schema.png)
 
-![Arduino photo](./images/arduino-1.JPG)
+![Arduino photo](../static/arduino-1.png)
 
 ## Controls
 
 Press this button to change the logic gate.
 
-![Arduino photo](./images/arduino-2.JPG)
+![Arduino photo](../static/arduino-2.png)
 
 Press this button to select the logic gate shown on the LCD.
 
-![Arduino photo](./images/arduino-3.JPG)
+![Arduino photo](../static/arduino-3.png)
 
 These two button are the inputs.
 
-![Arduino photo](./images/arduino-4.JPG)
+![Arduino photo](../static/arduino-4.png)
 
 I have selected the AND gate, so If I press both buttons the LED lights up.
 
-![Arduino photo](./images/arduino-5.JPG)
+![Arduino photo](../static/arduino-5.png)
 
 There are 7 logic gates to choose from.
 
-![Arduino photo](./images/arduino-6.JPG)
+![Arduino photo](../static/arduino-6.png)
 
-![Arduino photo](./images/arduino-7.JPG)
+![Arduino photo](../static/arduino-7.png)
 
-![Arduino photo](./images/arduino-8.JPG)
+![Arduino photo](../static/arduino-8.png)
 
-![Arduino photo](./images/arduino-9.JPG)
+![Arduino photo](../static/arduino-9.png)
 
-![Arduino photo](./images/arduino-10.JPG)
+![Arduino photo](../static/arduino-10.png)
 
-![Arduino photo](./images/arduino-111.JPG)
+![Arduino photo](../static/arduino-11.png)

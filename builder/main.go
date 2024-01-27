@@ -16,11 +16,11 @@ const (
 	TEMPLATE_INDEX     = "../web/src/templates/index.html"
 	TEMPLATE_ARTICLE   = "../web/src/templates/article.html"
 	IN_ARTICLES_DIR    = "../web/src/articles"
-	IN_IMAGES_DIR      = "../web/src/articles/images"
+	IN_STATIC_DIR      = "../web/src/static"
 	OUT_DIR            = "../web/out"
 	OUT_INDEX          = "../web/out/index.html"
 	OUT_ARTICLES_DIR   = "../web/out/articles"
-	OUT_IMAGES_DIR     = "../web/out/articles/images"
+	OUT_STATIC_DIR     = "../web/out/static"
 )
 
 type Article struct {
@@ -29,6 +29,11 @@ type Article struct {
 	Date        string
 	Url         string
 	HtmlContent string
+}
+
+type Paragraph struct {
+	text        string
+	isCodeBlock bool
 }
 
 type PatternsTable struct {
@@ -121,33 +126,40 @@ func panicInvalidLine(line string, filename string) {
 	panic(fmt.Sprintf("invalid line: %s in file %s\n", line, filename))
 }
 
-func splitParagraphs(text string) []string {
-	var paragraphs []string
+func splitParagraphs(text string) []Paragraph {
+	var paragraphs []Paragraph
 
 	scanner := bufio.NewScanner(strings.NewReader(text))
 
 	var inCodeBlock bool
-	var paragraph string
+	var paragraph Paragraph
 
 	for scanner.Scan() {
 		line := scanner.Text()
 
 		if strings.HasPrefix(line, "```") {
-			inCodeBlock = !inCodeBlock
-			paragraph += line
-			paragraph += "\r\n"
-			continue
+			inCodeBlock = true
 		}
 
-		if line == "" && !inCodeBlock {
-			paragraphs = append(paragraphs, paragraph)
-			paragraph = ""
-			continue
-		}
+		if inCodeBlock {
+			paragraph.text += line
+			paragraph.text += "\r\n"
 
-		paragraph += line
-		// FIXME: Does it works on linux (\r\n\r\n)?
-		paragraph += "\r\n"
+			if strings.HasPrefix(line, "```") {
+				inCodeBlock = false
+				paragraph.isCodeBlock = true
+				paragraphs = append(paragraphs, paragraph)
+				paragraph = Paragraph{}
+			}
+		} else {
+			if line == "" {
+				paragraphs = append(paragraphs, paragraph)
+				paragraph = Paragraph{}
+			} else {
+				paragraph.text += line
+				paragraph.text += "\r\n"
+			}
+		}
 	}
 
 	paragraphs = append(paragraphs, paragraph)
@@ -159,7 +171,7 @@ func main() {
 	deleteDir(OUT_DIR)
 	createDir(OUT_DIR)
 	createDir(OUT_ARTICLES_DIR)
-	createDir(OUT_IMAGES_DIR)
+	createDir(OUT_STATIC_DIR)
 
 	var inArticlesDir []fs.DirEntry
 
@@ -212,16 +224,21 @@ func main() {
 		for _, paragraph := range paragraphs {
 			var submatchesCounter int
 
-			htmlParagraph := paragraph
-			for _, pattern := range patternsTable.patterns {
+			htmlParagraph := paragraph.text
+
+			for patternName, pattern := range patternsTable.patterns {
+				if paragraph.isCodeBlock && patternName != "MD_CODE_BLOCK" {
+					continue
+				}
+
 				reg := regexp.MustCompile(pattern.regex)
-				submatches := reg.FindAllStringSubmatch(paragraph, -1)
+				submatches := reg.FindAllStringSubmatch(paragraph.text, -1)
 				submatchesCounter += len(submatches)
 
 				for _, matches := range submatches {
 					htmlTag := pattern.convertToHtml(matches)
 					htmlParagraph = strings.ReplaceAll(htmlParagraph, matches[0], htmlTag)
-					paragraph = strings.ReplaceAll(paragraph, matches[0], "")
+					paragraph.text = strings.ReplaceAll(paragraph.text, matches[0], "")
 				}
 			}
 
@@ -257,8 +274,19 @@ func main() {
 	htmlIndexTemplate = strings.ReplaceAll(htmlIndexTemplate, "{{ARTICLES}}", htmlArticlesList)
 	writeFile([]byte(htmlIndexTemplate), OUT_INDEX)
 
-	for _, image := range readDir(IN_IMAGES_DIR) {
-		file := readFile(fmt.Sprintf("%s/%s", IN_IMAGES_DIR, image.Name()))
-		writeFile(file, fmt.Sprintf("%s/%s", OUT_IMAGES_DIR, image.Name()))
+	for _, staticItem := range readDir(IN_STATIC_DIR) {
+		if staticItem.IsDir() {
+			staticDir := readDir(fmt.Sprintf("%s/%s", IN_STATIC_DIR, staticItem.Name()))
+
+			for _, nestedStaticItem := range staticDir {
+				file := readFile(fmt.Sprintf("%s/%s/%s",
+					IN_STATIC_DIR, staticItem.Name(), nestedStaticItem.Name()))
+
+				writeFile(file, fmt.Sprintf("%s/%s", OUT_STATIC_DIR, nestedStaticItem.Name()))
+			}
+		} else {
+			file := readFile(fmt.Sprintf("%s/%s", IN_STATIC_DIR, staticItem.Name()))
+			writeFile(file, fmt.Sprintf("%s/%s", OUT_STATIC_DIR, staticItem.Name()))
+		}
 	}
 }

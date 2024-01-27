@@ -3,7 +3,7 @@ DESCRIPTION=Take me back to the 2000s
 DATE=07/08/2023
 +++
 
-![Wtf](./images/shitty-web.png)
+![Wtf](../static/shitty-web.png)
 
 Please, git reset and force push the web.
 

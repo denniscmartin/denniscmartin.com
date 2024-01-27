@@ -11,4 +11,4 @@ Code: <https://github.com/denniscmartin/finance-parser>
 
 Youtube video: <https://www.youtube.com/watch?v=iBAKh0oA0ew>
 
-![Frontend](./images/parsing-financial-reports.png)
+![Frontend](../static/parsing-financial-reports.png)

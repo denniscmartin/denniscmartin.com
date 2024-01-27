@@ -4,4 +4,4 @@ DATE=25/08/2023
 +++
 Showcase of my shitty soldering skills.
 
-![Photo](./images/soldering.jpg)
+![Photo](../static/soldering.png)

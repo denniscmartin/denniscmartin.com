@@ -8,7 +8,7 @@ See, I really like finance. I remember working as a Crossfit trainer and spendin
 
 After leaving university, I was kind of burnt out from finance. Hopefully I recovered my interest in this topic in a few months, and now I'm back.
 
-![I'm back meme](./images/im-back.jpg)
+![I'm back meme](../static/im-back.png)
 
 After almost 30 years, I discovered what I want to do with my life.
 

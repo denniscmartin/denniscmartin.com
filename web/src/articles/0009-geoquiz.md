@@ -4,7 +4,7 @@ DATE=23/10/2022
 +++
 A geography game for iOS written in SwiftUI.
 
-![Geoquiz](./images/geoquiz.png)
+![Geoquiz](../static/geoquiz.png)
 
 Code: <https://github.com/denniscmartin/geoquiz-app>
 
