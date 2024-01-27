@@ -3,8 +3,8 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io/fs"
 	"regexp"
-	"sort"
 	"strings"
 )
 
@@ -13,11 +13,14 @@ const (
 	METADATA_TAG_TITLE = "TITLE"
 	METADATA_TAG_DESCR = "DESCRIPTION"
 	METADATA_TAG_DATE  = "DATE"
-	TEMPLATE_INDEX     = "../web/templates/index.html"
-	TEMPLATE_ARTICLE   = "../web/templates/article.html"
-	IN_ARTICLES_DIR    = "../web/articles"
+	TEMPLATE_INDEX     = "../web/src/templates/index.html"
+	TEMPLATE_ARTICLE   = "../web/src/templates/article.html"
+	IN_ARTICLES_DIR    = "../web/src/articles"
+	IN_IMAGES_DIR      = "../web/src/articles/images"
+	OUT_DIR            = "../web/src/out"
 	OUT_INDEX          = "../web/out/index.html"
 	OUT_ARTICLES_DIR   = "../web/out/articles"
+	OUT_IMAGES_DIR     = "../web/out/articles/images"
 )
 
 type Article struct {
@@ -153,11 +156,21 @@ func splitParagraphs(text string) []string {
 }
 
 func main() {
-	inArticlesDir := readDir(IN_ARTICLES_DIR)
+	createDir(OUT_DIR)
+	createDir(OUT_ARTICLES_DIR)
+	createDir(OUT_IMAGES_DIR)
 
-	sort.Slice(inArticlesDir, func(i, j int) bool {
-		return inArticlesDir[i].Name() > inArticlesDir[j].Name()
-	})
+	var inArticlesDir []fs.DirEntry
+
+	for _, file := range readDir(IN_ARTICLES_DIR) {
+		if file.IsDir() {
+			continue
+		}
+
+		if strings.HasSuffix(file.Name(), ".md") {
+			inArticlesDir = append(inArticlesDir, file)
+		}
+	}
 
 	var articles []Article
 
@@ -242,4 +255,6 @@ func main() {
 	htmlIndexTemplate := readFile(TEMPLATE_INDEX)
 	htmlIndexTemplate = strings.ReplaceAll(htmlIndexTemplate, "{{ARTICLES}}", htmlArticlesList)
 	writeFile(htmlIndexTemplate, OUT_INDEX)
+
+	//images := readDir()
 }

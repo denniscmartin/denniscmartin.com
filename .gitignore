@@ -14,5 +14,5 @@ web/.parcel-cache
 web/dist
 
 # Project
-web/out/articles/*.html
-web/out/*.html
+web/out
+

@@ -20,6 +20,14 @@ func readDir(path string) []fs.DirEntry {
 	return files
 }
 
+func createDir(path string) {
+	err := os.Mkdir(path, 0755)
+
+	if err != nil {
+		panic(err)
+	}
+}
+
 func readFile(filename string) string {
 	content, err := os.ReadFile(filename)
 
