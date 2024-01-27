@@ -39,6 +39,13 @@ type Pattern struct {
 
 var patternsTable = PatternsTable{
 	patterns: map[string]Pattern{
+		"MD_HEADING": {
+			regex: `(?m)^(#{1,6}) (.+)$`,
+			convertToHtml: func(matches []string) string {
+				headingCount := len(matches[1])
+				return fmt.Sprintf(`<h%d>%s</h%d>`, headingCount, matches[2], headingCount)
+			},
+		},
 		"MD_LINK": {
 			regex: `\[(.+?)\]\((.+?)\)`,
 			convertToHtml: func(matches []string) string {
@@ -49,13 +56,6 @@ var patternsTable = PatternsTable{
 			regex: `(?m)<([^>]+)>`,
 			convertToHtml: func(matches []string) string {
 				return fmt.Sprintf(`<a href="%s" target="_blank">%s</a>`, matches[1], matches[1])
-			},
-		},
-		"MD_HEADING": {
-			regex: `(?m)^(#{1,6}) (.+)$`,
-			convertToHtml: func(matches []string) string {
-				headingCount := len(matches[1])
-				return fmt.Sprintf(`<h%d>%s</h%d>`, headingCount, matches[2], headingCount)
 			},
 		},
 		"MD_CODE_BLOCK": {
@@ -187,7 +187,6 @@ func main() {
 
 		body := strings.TrimSpace(inParticleParts[1])
 		paragraphs := splitParagraphs(body)
-		fmt.Println(len(paragraphs))
 		var htmlBody string
 
 		for _, paragraph := range paragraphs {
@@ -206,16 +205,12 @@ func main() {
 				}
 			}
 
-			if submatchesCounter == 0 {
-				htmlBody += paragraph
+			if strings.HasPrefix(htmlParagraph, "<h") || strings.HasPrefix(htmlParagraph, "<div") {
+				htmlBody += htmlParagraph
 			} else {
-				if strings.HasPrefix(htmlParagraph, "<h") || strings.HasPrefix(htmlParagraph, "<div") {
-					htmlBody += htmlParagraph
-				} else {
-					htmlBody += `<p>`
-					htmlBody += htmlParagraph
-					htmlBody += `</p>`
-				}
+				htmlBody += `<p>`
+				htmlBody += htmlParagraph
+				htmlBody += `</p>`
 			}
 		}
 
