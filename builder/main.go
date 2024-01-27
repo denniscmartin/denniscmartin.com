@@ -46,6 +46,12 @@ var patternsTable = PatternsTable{
 				return fmt.Sprintf(`<h%d>%s</h%d>`, headingCount, matches[2], headingCount)
 			},
 		},
+		"MD_IMAGE": {
+			regex: `(?m)!\[(.*?)\]\((.*?)\)`,
+			convertToHtml: func(matches []string) string {
+				return fmt.Sprintf(`<img src="%s" alt="%s" with="300">`, matches[2], matches[1])
+			},
+		},
 		"MD_LINK": {
 			regex: `\[(.+?)\]\((.+?)\)`,
 			convertToHtml: func(matches []string) string {
