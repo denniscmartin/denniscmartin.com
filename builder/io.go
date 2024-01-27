@@ -28,18 +28,26 @@ func createDir(path string) {
 	}
 }
 
-func readFile(filename string) string {
+func deleteDir(path string) {
+	err := os.RemoveAll(path)
+
+	if err != nil {
+		panic(err)
+	}
+}
+
+func readFile(filename string) []byte {
 	content, err := os.ReadFile(filename)
 
 	if err != nil {
 		panic(err)
 	}
 
-	return string(content)
+	return content
 }
 
-func writeFile(content string, filename string) {
-	err := os.WriteFile(filename, []byte(content), 0755)
+func writeFile(content []byte, filename string) {
+	err := os.WriteFile(filename, content, 0755)
 
 	if err != nil {
 		panic(err)

@@ -156,6 +156,7 @@ func splitParagraphs(text string) []string {
 }
 
 func main() {
+	deleteDir(OUT_DIR)
 	createDir(OUT_DIR)
 	createDir(OUT_ARTICLES_DIR)
 	createDir(OUT_IMAGES_DIR)
@@ -176,7 +177,7 @@ func main() {
 
 	for _, inArticleEntry := range inArticlesDir {
 		var article Article
-		inArticle := readFile(fmt.Sprintf("%s/%s", IN_ARTICLES_DIR, inArticleEntry.Name()))
+		inArticle := string(readFile(fmt.Sprintf("%s/%s", IN_ARTICLES_DIR, inArticleEntry.Name())))
 		inParticleParts := strings.Split(inArticle, METADATA_TAG_END)
 		metadata := inParticleParts[0]
 		metadataScanner := bufio.NewScanner(strings.NewReader(metadata))
@@ -233,13 +234,13 @@ func main() {
 			}
 		}
 
-		article.HtmlContent = readFile(TEMPLATE_ARTICLE)
+		article.HtmlContent = string(readFile(TEMPLATE_ARTICLE))
 		article.HtmlContent = strings.ReplaceAll(article.HtmlContent, "{{TITLE}}", article.Title)
 		article.HtmlContent = strings.ReplaceAll(article.HtmlContent, "{{ARTICLE}}", htmlBody)
 		outArticleFilename := strings.ReplaceAll(inArticleEntry.Name(), ".md", ".html")
 		article.Url = fmt.Sprintf("articles/%s", outArticleFilename)
 
-		writeFile(article.HtmlContent, fmt.Sprintf("%s/%s", OUT_ARTICLES_DIR, outArticleFilename))
+		writeFile([]byte(article.HtmlContent), fmt.Sprintf("%s/%s", OUT_ARTICLES_DIR, outArticleFilename))
 
 		articles = append(articles, article)
 	}
@@ -252,9 +253,12 @@ func main() {
 		)
 	}
 
-	htmlIndexTemplate := readFile(TEMPLATE_INDEX)
+	htmlIndexTemplate := string(readFile(TEMPLATE_INDEX))
 	htmlIndexTemplate = strings.ReplaceAll(htmlIndexTemplate, "{{ARTICLES}}", htmlArticlesList)
-	writeFile(htmlIndexTemplate, OUT_INDEX)
+	writeFile([]byte(htmlIndexTemplate), OUT_INDEX)
 
-	//images := readDir()
+	for _, image := range readDir(IN_IMAGES_DIR) {
+		file := readFile(fmt.Sprintf("%s/%s", IN_IMAGES_DIR, image.Name()))
+		writeFile(file, fmt.Sprintf("%s/%s", OUT_IMAGES_DIR, image.Name()))
+	}
 }
