@@ -1,7 +1,1 @@
-# Theme Name
-
-## Features
-
-## Installation
-
-## Configuration
+# My custom theme
