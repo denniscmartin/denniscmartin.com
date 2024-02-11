@@ -1,0 +1,107 @@
++++
+title = 'Logical Volume Manager configurations'
+date = 2023-09-01
+draft = true
++++
+
+Basic LVM configuration.
+
+## Create an LVM logical volume on three disks
+
+1. Label disks as LVM physical volumes
+2. Create a volume group consisting of LVM physical volumes created in step 1.
+3. Create a logical volume from the volume group created in step 2.
+4. Create a file system on the logical volume created in step 3.
+5. Mount the logical volume.
+
+### Label disks as LVM physical volumes
+
+This command destroys any data on /dev/sda1, /dev/sdb1, and /dev/sdc1.
+
+```bash
+pvcreate /dev/sda1 /dev/sdb1 /dev/sdc1
+```
+
+### Create volume group
+
+```bash
+vgcreate new_vol_group /dev/sda1 /dev/sdb1 /dev/sdc1
+```
+
+You can display volume groups with `vgs` command.
+
+### Create logical volume
+
+```bash
+lvcreate -L 2G -n new_logical_volume new_vol_group
+```
+
+### Create file system
+
+In this case I’m using `ext4`.
+
+```bash
+mkfs.ext4 /dev/new_vol_group/new_logical_volume
+```
+
+### Mount logical volume
+
+```bash
+mount /dev/new_vol_group/new_logical_volume /mnt
+```
+
+You can display file system disk space usage using `df -H`command.
+
+## Adding new disks to an existing logical volume
+
+Let’s say you bought a new disk and want to add it to the logical volume previously created. The steps are:
+
+1. Attach the new disk to the system.
+2. Label the disk attached in step 1 as LVM physical volume.
+3. Extend the volume group.
+4. Extend the logical volume.
+5. Extend the filesystem.
+
+I'm going to skip step 1 since this is dependant on your system.
+
+### Label new disk as LVM physical volume
+
+```bash
+pvcreate /dev/sdd1
+```
+
+### Extend the volume group
+
+First you should identify your volume group with the `vgs` command. I'm going to use the volume group `new_vol_group` created in the first part of this post.
+
+```bash
+vgextend new_vol_group /dev/sdd1
+```
+
+### Extend the logical volume
+
+First you should identify your logical volume. I’m going to use the logical volume new_logical_volume created in the first part of this post
+
+```bash
+lvextend -l +100%FREE /dev/new_vol_group/new_logical_volume
+```
+
+Note: I think there is a method to extend the logical volume and the filesystem with the same command. However, I’m going to do it in two steps because it is what I’m used to.
+
+### Extend the filesystem
+
+First confirm the filesystem you are using. In my case is `ext4`.
+
+```bash
+resize2fs /dev/new_vol_group/new_logical_volume
+```
+
+Now you should see the size of your extended partition `df -H`.
+
+## References
+
+- [RedHar create LVM](https://access.redhat.com/documentation/es-es/red_hat_enterprise_linux/7/html/logical_volume_manager_administration/lvm_examples?ref=denniscmartin.com)
+
+- [RedHat adding physical volumes to a volume group](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/logical_volume_manager_administration/vg_grow?ref=denniscmartin.com)
+
+- [Extending ext4 file system](https://www.systutorials.com/extending-a-mounted-ext4-file-system-on-lvm-in-linux/?ref=denniscmartin.com)

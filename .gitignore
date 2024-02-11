@@ -1,17 +1,4 @@
-# Go
-*.exe
-*.exe~
-*.dll
-*.so
-*.dylib
-*.test
-*.out
-go.work
+public
+resources
 
-# JS
-web/node_modules
-web/.parcel-cache
-web/dist
-
-# Project
-web/out
+/.hugo_build.lock

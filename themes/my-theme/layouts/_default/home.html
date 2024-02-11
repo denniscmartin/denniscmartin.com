@@ -1,0 +1,19 @@
+{{ define "main" }}
+{{ .Content }}
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Title</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{ range site.RegularPages }}
+        <tr>
+            <td>{{ time.Format "2006-01-02" .Date }}</td>
+            <td><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></td>
+        </tr>
+        {{ end }}
+    </tbody>
+</table>
+{{ end }}
