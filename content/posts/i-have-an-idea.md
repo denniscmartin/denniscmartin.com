@@ -1,7 +1,7 @@
 +++
 title = 'I have an idea'
 date = 2024-01-02
-draft = true
+draft = false
 +++
 
 New year new goals they say. The past year, I took some time to reflect in my programming

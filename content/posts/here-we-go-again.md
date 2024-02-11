@@ -1,7 +1,7 @@
 +++
 title = 'Here we go again'
 date = 2023-08-06
-draft = true
+draft = false
 +++
 
 This is my last (I hope) attempt to start a blog. I’m committed to stop deleting

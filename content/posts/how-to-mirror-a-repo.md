@@ -1,7 +1,7 @@
 +++
 title = 'How to mirror a git repository'
 date = 2023-08-07
-draft = true
+draft = false
 +++
 
 Well, It’s not actually mirror. It’s just “How to push to multiple repos but only fetch changes from one”.

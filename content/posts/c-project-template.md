@@ -1,7 +1,7 @@
 +++
 title = 'My template for C projects'
 date = 2023-08-29
-draft = true
+draft = false
 +++
 
 This is the script I use to create a basic C project fast. It creates the following files:

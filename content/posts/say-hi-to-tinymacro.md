@@ -1,7 +1,7 @@
 +++
 title = 'Say hi to Tinymacro'
 date = 2024-02-01
-draft = true
+draft = false
 +++
 
 Two weeks ago I shared a blog post where I introduced and idea that has been on my mind for some time. Here is the blog post: [Building a startup](https://denniscmartin.com/building-a-startup/). This time, I'd like to give you a brief introduction to this idea.

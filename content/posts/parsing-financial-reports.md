@@ -1,7 +1,7 @@
 +++
 title = 'Parsing Financial Reports using Python and AWS'
 date = 2023-04-30
-draft = true
+draft = false
 +++
 
 Mi intento de automatizar la extracción de los datos de un balance financiero en PDF a un formato estructurado, ponerlos a disposición de los usuarios a través de una API, y mostrarlos en una aplicación web.

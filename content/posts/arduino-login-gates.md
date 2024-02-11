@@ -1,7 +1,7 @@
 +++
 title = 'Playing with logic gates and an Arduino'
 date = 2023-08-25
-draft = true
+draft = false
 +++
 
 Code: [Github](https://github.com/denniscmartin/logic-led)

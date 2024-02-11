@@ -1,7 +1,7 @@
 +++
 title = 'A geography game for iOS written in SwiftUI'
 date = 2022-10-23
-draft = true
+draft = false
 +++
 
 A geography game for iOS written in SwiftUI.

@@ -1,7 +1,7 @@
 +++
 title = 'A photopicker wrapper in SwiftUI'
 date = 2022-11-25
-draft = true
+draft = false
 +++
 
 A generic implementation of a photo picker in SwiftUI using PhotosUI.

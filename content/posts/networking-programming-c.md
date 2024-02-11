@@ -1,7 +1,7 @@
 +++
 title = 'Networking Programming in C'
 date = 2023-07-21
-draft = true
+draft = false
 +++
 
 Hey! is a simple TCP streaming app developed in C using POSIX APIs. Both client and server are containerized using Docker. I’ve made a video about this project.

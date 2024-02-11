@@ -1,7 +1,7 @@
 +++
 title = 'Some configurations to start a new server'
 date = 2023-08-29
-draft = true
+draft = false
 +++
 
 Basic steps to do after creating an Ubuntu VM.

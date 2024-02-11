@@ -1,7 +1,7 @@
 +++
 title = 'Experimenting with Swift networking'
 date = 2022-02-02
-draft = true
+draft = false
 +++
 
 An experiment with Swift networking.

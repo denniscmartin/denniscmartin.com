@@ -1,7 +1,7 @@
 +++
 title = 'What field of programming do I enjoy the most?'
 date = 2023-08-22
-draft = true
+draft = false
 +++
 
 After almost 4 years learning programming, I’ve not discovered yet what field I enjoy the most. However, I know what I want to experience while programming.

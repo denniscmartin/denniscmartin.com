@@ -1,7 +1,7 @@
 +++
 title = 'My first time soldering'
 date = 2023-08-25
-draft = true
+draft = false
 +++
 
 Showcase of my shitty soldering skills.

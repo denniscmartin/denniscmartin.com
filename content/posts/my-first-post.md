@@ -1,7 +1,7 @@
 +++
 title = 'My first iOS app'
 date = 2020-12-01
-draft = true
+draft = false
 +++
 
 Lazybear is my first iOS app and programming project. It was a stock tracker. You could save your favourite stocks, check their current price and the main financial ratios. Also you cold see a historical chart of the stock. I've built

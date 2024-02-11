@@ -1,7 +1,7 @@
 +++
 title = 'Pricing options with Black-Scholes in Python'
 date = 2021-11-21
-draft = true
+draft = false
 +++
 
 A command line utility to calculate the theoretical call and put price of an European option using the black-scholes method.

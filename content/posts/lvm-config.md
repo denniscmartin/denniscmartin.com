@@ -1,7 +1,7 @@
 +++
 title = 'Logical Volume Manager configurations'
 date = 2023-09-01
-draft = true
+draft = false
 +++
 
 Basic LVM configuration.

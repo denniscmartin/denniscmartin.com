@@ -1,7 +1,7 @@
 +++
 title = 'My first open source project'
 date = 2021-04-28
-draft = true
+draft = false
 +++
 
 # Installation

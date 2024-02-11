@@ -1,7 +1,7 @@
 +++
 title = 'A program to analyse tweets using AWS Comprehend'
 date = 2021-09-14
-draft = true
+draft = false
 +++
 
 Serverless app to fetch & analyse tweets using AWS Comprehend that I've made to play with AWS services

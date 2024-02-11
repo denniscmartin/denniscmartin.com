@@ -1,7 +1,7 @@
 +++
 title = 'A program to solve mazes in C'
 date = 2022-10-16
-draft = true
+draft = false
 +++
 
 A maze solver written in C.

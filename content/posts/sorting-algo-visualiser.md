@@ -1,7 +1,7 @@
 +++
 title = 'A sorting algorithms visualiser written in C using OpenGL'
 date = 2023-06-16
-draft = true
+draft = false
 +++
 
 An interactive program to visualize sorting algorithms. Developed in C using OpenGL, GLUT and FreeType. I also made a video about this project.

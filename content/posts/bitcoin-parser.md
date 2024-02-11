@@ -1,7 +1,7 @@
 +++
 title = 'Writting a Bitcoin parser in Python'
 date = 2021-10-06
-draft = true
+draft = false
 +++
 
 A Bitcoin blockchain parser written in Python.
