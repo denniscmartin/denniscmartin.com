@@ -1,0 +1,84 @@
+:root {
+    --app-color-papaya: #fdf0d5;
+    --app-color-blue: #003049;
+    --app-color-blue-soft: #669bbc;
+    --app-screen-sm: 640px;
+    --app-screen-md: 768px;
+    --app-screen-lg: 1024px;
+    --app-screen-xl: 1280px;
+    --app-screen-2xl: 1536px;
+    --app-font-size-nav: 16px;
+    --app-font-size-body: 20px;
+}
+
+/* Global */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+    font-size: var(--app-font-size-body);
+    font-weight: normal;
+    border-bottom: 2px solid var(--app-color-blue);
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--app-color-papaya);
+    color: var(--app-color-blue);
+    padding: 15px 40px;
+    font-family: 'IBM Plex Serif', serif;
+    font-size: var(--app-font-size-body);
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    font-size: var(--app-font-size-nav);
+
+    ul {
+        display: flex;
+        justify-content: space-between;
+
+        li {
+            margin-right: 15px;
+            list-style-type: none;
+
+            a {
+                color: var(--app-color-blue);
+                text-decoration: none;
+                opacity: 0.85;
+            }
+        }
+
+        li:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+li {
+    list-style-type: circle;
+}
+
+a {
+    color: var(--app-color-blue-soft);
+}
+
+a:hover {
+    opacity: 1;
+    color: var(--app-color-blue);
+}
+
+main {
+    text-align: left;
+    margin-top: 100px;
+}
