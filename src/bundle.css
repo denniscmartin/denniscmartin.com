@@ -1,14 +1,14 @@
 :root {
     --app-color-papaya: #fdf0d5;
     --app-color-blue: #003049;
-    --app-color-blue-soft: #669bbc;
+    --app-color-red: #780000;
     --app-screen-sm: 640px;
     --app-screen-md: 768px;
     --app-screen-lg: 1024px;
     --app-screen-xl: 1280px;
     --app-screen-2xl: 1536px;
-    --app-font-size-nav: 16px;
-    --app-font-size-body: 20px;
+    --app-font-size-nav: 14px;
+    --app-font-size-body: 16px;
 }
 
 /* Global */
@@ -19,9 +19,20 @@
     box-sizing: border-box;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--app-color-papaya);
+    color: var(--app-color-blue);
+    padding: 15px 40px;
+    font-family: 'IBM Plex Serif', serif;
+    font-size: var(--app-font-size-body);
+    line-height: 150%;
+    min-height: 100vh; /* Fallback for dvh */
+    min-height: 100dvh;
+}
+
 h1 {
-    margin: 0;
-    padding: 0;
     font-size: var(--app-font-size-body);
     font-weight: normal;
     border-bottom: 2px solid var(--app-color-blue);
@@ -30,16 +41,37 @@ h1 {
     text-align: left;
 }
 
-body {
-    min-height: 100vh;
-    background-color: var(--app-color-papaya);
-    color: var(--app-color-blue);
-    padding: 15px 40px;
-    font-family: 'IBM Plex Serif', serif;
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+h2 {
+    font-size: calc(var(--app-font-size-body) + 12px);
+}
+
+h3 {
+    font-size: calc(var(--app-font-size-body) + 9px);
+}
+
+h4 {
+    font-size: calc(var(--app-font-size-body) + 6px);
+}
+
+h5 {
+    font-size: calc(var(--app-font-size-body) + 3px);
+}
+
+h6 {
     font-size: var(--app-font-size-body);
 }
 
-nav {
+nav,
+footer {
     display: flex;
     justify-content: center;
     font-size: var(--app-font-size-nav);
@@ -55,7 +87,10 @@ nav {
             a {
                 color: var(--app-color-blue);
                 text-decoration: none;
-                opacity: 0.85;
+            }
+
+            a:hover {
+                text-decoration: underline;
             }
         }
 
@@ -70,7 +105,7 @@ li {
 }
 
 a {
-    color: var(--app-color-blue-soft);
+    color: var(--app-color-red);
 }
 
 a:hover {
@@ -81,4 +116,11 @@ a:hover {
 main {
     text-align: left;
     margin-top: 100px;
+    margin-bottom: 100px;
+    flex-grow: 1;
+}
+
+code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: calc(var(--app-font-size-body) - 2px);
 }
