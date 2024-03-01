@@ -1,5 +1,0 @@
-{
-    "layout": "layout.html",
-    "tags": "notes",
-    "permalink": "notes/{{ number }}/index.html"
-}
