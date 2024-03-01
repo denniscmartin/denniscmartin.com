@@ -124,3 +124,7 @@ code {
     font-family: 'IBM Plex Mono', monospace;
     font-size: calc(var(--app-font-size-body) - 2px);
 }
+
+p {
+    margin: 15px 0;
+}
