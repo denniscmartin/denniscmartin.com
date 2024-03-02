@@ -4,7 +4,7 @@ title = 'Dennis C. Martín'
 theme = 'mytheme'
 copyright = '© 2024 Dennis Concepción Martín'
 [params]
-    thumbnail = 'thumbnail'
+    thumbnail = '/thumbnail.png'
     [params.author]
         name = 'Dennis Concepción Martín'
         email = 'dennis@denniscmartin.com'

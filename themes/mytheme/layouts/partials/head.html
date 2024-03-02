@@ -34,8 +34,12 @@
 
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{{ .Permalink }}" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="600" />
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="{{ site.Params.Author.Twitter }}" />
+<meta name="twitter:image" content="{{ site.Params.Thumbnail }}" />
 
 {{ with .OutputFormats.Get "rss" -}}
     {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
