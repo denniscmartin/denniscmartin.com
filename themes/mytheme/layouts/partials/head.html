@@ -20,15 +20,19 @@
 {{ with .Summary }}
     <meta name="description" content="{{ . }}" />
     <meta property="og:description" content="{{ . }}" />
+    <meta name="twitter:description" content="{{ . }}" />
 {{ else }}
     <meta name="description" content="{{ .Description }}" />
     <meta property="og:description" content="{{ .Description }}" />
+    <meta name="twitter:description" content="{{ .Description }}" />
 {{ end }}
 
 {{ with .Params.Thumbnail }}
     <meta property="og:image" content="{{ . }}" />
+    <meta name="twitter:image" content="{{ . }}" />
 {{ else }}
     <meta property="og:image" content="{{ site.Params.Thumbnail }}" />
+    <meta name="twitter:image" content="{{ site.Params.Thumbnail }}" />
 {{ end }}
 
 
@@ -39,7 +43,6 @@
 <meta property="og:image:height" content="600" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="{{ site.Params.Author.Twitter }}" />
-<meta name="twitter:image" content="{{ site.Params.Thumbnail }}" />
 
 {{ with .OutputFormats.Get "rss" -}}
     {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
