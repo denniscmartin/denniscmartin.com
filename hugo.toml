@@ -1,4 +1,12 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://denniscmartin.com/'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = 'Dennis C. Martín'
 theme = 'mytheme'
+copyright = '© 2024 Dennis Concepción Martín'
+[params]
+    thumbnail = 'thumbnail'
+    [params.author]
+        name = 'Dennis Concepción Martín'
+        email = 'dennis@denniscmartin.com'
+        twitter = '@dennisconcep'
+

@@ -1,0 +1,15 @@
+{
+    "name": "denniscmartin.com",
+    "version": "1.0.0",
+    "description": "My personal journal",
+    "scripts": {
+        "format-check": "prettier --check .",
+        "format-fix": "prettier --write ."
+    },
+    "author": "Dennis Concepción Martín",
+    "license": "MIT",
+    "devDependencies": {
+        "prettier": "^3.2.5",
+        "prettier-plugin-go-template": "^0.0.15"
+    }
+}

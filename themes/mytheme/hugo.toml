@@ -1,6 +1,6 @@
 baseURL = 'https://example.org/'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = 'My custom theme'
 
 [[menus.main]]
 name = 'Home'
@@ -13,9 +13,39 @@ pageRef = '/posts'
 weight = 20
 
 [[menus.main]]
+name = 'Notes'
+pageRef = '/notes'
+weight = 30
+
+[[menus.main]]
+name = 'Projects'
+pageRef = '/projects'
+weight = 40
+
+[[menus.footer]]
 name = 'Tags'
 pageRef = '/tags'
+weight = 10
+
+[[menus.footer]]
+name = 'RSS'
+url = '/index.xml'
+weight = 20
+
+[[menus.footer]]
+name = 'Sitemap'
+url = '/sitemap.xml'
 weight = 30
+
+[[menus.footer]]
+name = 'License'
+pageRef = '/license'
+weight = 40
+
+[[menus.footer]]
+name = 'Privacy'
+pageRef = '/privacy'
+weight = 50
 
 [module]
   [module.hugoVersion]
