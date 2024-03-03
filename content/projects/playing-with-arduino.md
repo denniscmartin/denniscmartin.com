@@ -19,27 +19,27 @@ pictures
 
 ## Controls
 
-![Arduino photo]({{< cdn >}}projects-playing-with-arduino-arduino-1.png{{< /cdn >}})    
+![Arduino photo]({{< cdn >}}projects-playing-with-arduino-arduino-1.png{{< /cdn >}})
 
-![Arduino photo]({{< cdn >}}projects-playing-with-arduino-arduino-2.png{{< /cdn >}})  
+![Arduino photo]({{< cdn >}}projects-playing-with-arduino-arduino-2.png{{< /cdn >}})
 
 Press this button to change the logic gate.
 
-![Arduino photo]({{< cdn >}}projects-playing-with-arduino-arduino-3.png{{< /cdn >}})  
+![Arduino photo]({{< cdn >}}projects-playing-with-arduino-arduino-3.png{{< /cdn >}})
 
 Press this button to select the logic gate shown on the LCD.
 
-![Arduino photo]({{< cdn >}}projects-playing-with-arduino-arduino-4.png{{< /cdn >}})  
+![Arduino photo]({{< cdn >}}projects-playing-with-arduino-arduino-4.png{{< /cdn >}})
 
 These two button are the inputs.
 
-![Arduino photo]({{< cdn >}}projects-playing-with-arduino-arduino-5.png{{< /cdn >}})  
+![Arduino photo]({{< cdn >}}projects-playing-with-arduino-arduino-5.png{{< /cdn >}})
 
-I have selected the AND gate, so If I press both buttons the LED lights up.  
+I have selected the AND gate, so If I press both buttons the LED lights up.
 
-![Arduino photo]({{< cdn >}}projects-playing-with-arduino-arduino-6.png{{< /cdn >}})  
+![Arduino photo]({{< cdn >}}projects-playing-with-arduino-arduino-6.png{{< /cdn >}})
 
-There are 6 logic gates to choose from.  
+There are 6 logic gates to choose from.
 
 ![Arduino photo]({{< cdn >}}projects-playing-with-arduino-arduino-7.png{{< /cdn >}})
 ![Arduino photo]({{< cdn >}}projects-playing-with-arduino-arduino-8.png{{< /cdn >}})

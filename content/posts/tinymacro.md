@@ -23,7 +23,7 @@ interest in this topic in a few months, and now I'm back.
 
 After almost 30 years, I discovered what I want to do with my life.
 
-*Narrator: the previous statement is subject to changes.*
+_Narrator: the previous statement is subject to changes._
 
 I want to use my programming skills to make something that people use. If that thing is
 related to the finance sector, that would be awesome. TinyMacro is my first serious
@@ -66,7 +66,7 @@ Most global economic data is free and can be retrieved from government websites.
 examples are: SEC, Data.gov, World Bank, European Bank, National Statistical Institutes
 like the Federal Statistical Office in Germany, Eurostat, and so on.
 
-My work is to automate data extraction, standardized structures for storage in a 
+My work is to automate data extraction, standardized structures for storage in a
 database, and continuously monitoring for any new changes. Then, build a web platform on
 top of that, and an API to offer the data to developers. It seems simple but it is not.
 It is a lot of work.

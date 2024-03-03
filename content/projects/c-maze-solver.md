@@ -6,8 +6,8 @@ draft = false
 tags = ['c-language', 'maze', 'programming']
 +++
 
-I recently saw the 
-[Maze solving youtube video](https://www.youtube.com/watch?v=rop0W4QDOUI) from 
+I recently saw the
+[Maze solving youtube video](https://www.youtube.com/watch?v=rop0W4QDOUI) from
 Computerphile and I find it very interesting. So I decided to build my own maze solver program.
 
 It's a C program that takes a maze PNG and outputs the solution using the [Wall Follower algorithm](https://en.wikipedia.org/wiki/Maze-solving_algorithm)

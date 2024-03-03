@@ -19,6 +19,7 @@ Here is a short video:
 
 {{< raw >}}  
 <video width=100% controls autoplay>
+
 <source src="{{< cdn >}}projects-algo-visualiser-video.mp4{{< /cdn >}}" type="video/mp4">
 Your browser does not support the video tag.  
 </video>

@@ -6,7 +6,7 @@ draft = false
 tags = ['iOS', 'swift', 'swiftUI', 'xcode', 'open-source', 'charts', 'stocks']
 +++
 
-*This project is now deprecated in favor of the [Apple's native framework](https://developer.apple.com/documentation/charts). At the time of archiving this project, it has accumulated 98 stars and 11 forks on Github.*   
+_This project is now deprecated in favor of the [Apple's native framework](https://developer.apple.com/documentation/charts). At the time of archiving this project, it has accumulated 98 stars and 11 forks on Github._
 
 StockCharts is a library to create intertactive charts in SwiftUI.
 
@@ -14,8 +14,8 @@ StockCharts is a library to create intertactive charts in SwiftUI.
 
 ## Installation
 
-- In Xcode go to `File` -> `Swift packages` -> `Add package dependency`
-- Copy and paste <https://github.com/denniscmartin/stock-charts.git>
+-   In Xcode go to `File` -> `Swift packages` -> `Add package dependency`
+-   Copy and paste <https://github.com/denniscmartin/stock-charts.git>
 
 I've created a demo app using StockCharts called Trades. Check out the code
 in my [Github](https://github.com/denniscmartin/trades-demo)

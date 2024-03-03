@@ -6,12 +6,12 @@ draft = false
 tags = ['finance', 'programming', 'python', 'black-scholes']
 +++
 
-A command line utility to calculate the theoretical call and put price of an European 
+A command line utility to calculate the theoretical call and put price of an European
 option using the black-scholes model.
 
 You can find the code in my [Github](https://github.com/denniscmartin/python-black-scholes)
 
-Previously, the project name was `fucking-black-scholes`, but I changed it to make sure 
+Previously, the project name was `fucking-black-scholes`, but I changed it to make sure
 that no employer thinks I’m crazy or something.
 
 ## Usage
@@ -24,15 +24,15 @@ fbs --help
 
 Price an European call option with the following data:
 
-- Spot price -> $20
+-   Spot price -> $20
 
-- Exercise price -> $21
+-   Exercise price -> $21
 
-- Risk free rate -> 5%
+-   Risk free rate -> 5%
 
-- Standard deviation -> 25%
+-   Standard deviation -> 25%
 
-- Time to expiration -> 6 months
+-   Time to expiration -> 6 months
 
 ```bash
 fbs \
