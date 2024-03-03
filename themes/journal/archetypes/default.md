@@ -1,6 +1,6 @@
 +++
 title = '{{ replace .File.ContentBaseName "-" " " | title }}'
 date = {{ .Date }}
-thumbnail = '{{ .File.Dir }}thumbnail.png'
-draft = true
+thumbnail = '{{ replace .File.Dir "/" "-"  }}{{ .File.BaseFileName }}-thumbnail.png'
+draft = false
 +++

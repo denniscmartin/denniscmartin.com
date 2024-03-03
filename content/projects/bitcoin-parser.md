@@ -1,8 +1,9 @@
 +++
 title = 'Building a Bitcoin parser in Python'
 date = 2021-10-06
-thumbnail = 'thumbnail-bitcoin-parser.png'
+thumbnail = 'projects-bitcoin-parser-thumbnail.png'
 draft = false
+tags = ['bitcoin', 'c-language', 'programming', 'parser']
 +++
 
 I want to learn more about the technology behind Bitcoin, so what better way to do so than

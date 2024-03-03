@@ -1,6 +1,14 @@
 baseURL = 'https://example.org/'
 languageCode = 'en-us'
 title = 'My journal'
+copyright = '© [Year] All rights reserved.'
+[params]
+    cdnBaseUrl = 'https://media.example.org'
+    thumbnail = 'thumbnail.png'
+    [params.author]
+        name = 'Dennis Concepción Martín'
+        email = 'dennis@denniscmartin.com'
+        twitter = '@dennisconcep'
 
 [[menus.main]]
 name = 'Home'

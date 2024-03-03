@@ -1,8 +1,9 @@
 +++
 title = 'Hey! Network programming in C'
 date = 2023-07-21
-thumbnail = 'thumbnail-hey.png'
+thumbnail = 'projects-hey-thumbnail.png'
 draft = false
+tags = ['networking', 'c-language', 'programming', 'docker']
 +++
 
 

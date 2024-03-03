@@ -1,8 +1,9 @@
 +++
 title = 'I have an idea'
 date = 2024-01-02
-thumbnail = 'thumbnail-a-new-idea.png'
+thumbnail = 'posts-a-new-idea-thumbnail.png'
 draft = false
+tags = ['business', 'programming']
 +++
 
 New year new goals they say. The past year, I took some time to reflect in my programming

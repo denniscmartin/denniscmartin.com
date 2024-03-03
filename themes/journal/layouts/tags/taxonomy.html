@@ -1,5 +1,5 @@
 {{ define "main" }}
-    <h1>{{ .Title }}</h1>
+    <h1>#{{ .Title }}</h1>
     {{ .Content }}
     {{ with where .Pages "Section" "posts" }}
         {{ if gt (len .) 0 }}
@@ -27,7 +27,7 @@
             </ul>
         {{ end }}
     {{ end }}
-    {{ with where .Pages "Section" "posts" }}
+    {{ with where .Pages "Section" "projects" }}
         {{ if gt (len .) 0 }}
             <h2>Projects</h2>
             <ul>

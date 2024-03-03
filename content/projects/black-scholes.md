@@ -1,8 +1,9 @@
 +++
 title = 'Pricing financial options in Python using Black-Scholes'
 date = 2021-11-21
-thumbnail = 'thumbnail-black-scholes.png'
+thumbnail = 'projects-black-scholes-thumbnail.png'
 draft = false
+tags = ['finance', 'programming', 'python', 'black-scholes']
 +++
 
 A command line utility to calculate the theoretical call and put price of an European 
