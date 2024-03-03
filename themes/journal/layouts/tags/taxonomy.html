@@ -1,0 +1,40 @@
+{{ define "main" }}
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+    {{ with where .Pages "Section" "posts" }}
+        {{ if gt (len .) 0 }}
+            <h2>Posts</h2>
+            <ul>
+                {{ range . }}
+                    <li>
+                        <a href="{{ .RelPermalink }}">{{ time.Format "2006-01-02" .Date }}:</a>
+                        {{ .LinkTitle }}
+                    </li>
+                {{ end }}
+            </ul>
+        {{ end }}
+    {{ end }}
+    {{ with where .Pages "Section" "notes" }}
+        {{ if gt (len .) 0 }}
+            <h2>Notes</h2>
+            <ul>
+                {{ range . }}
+                    <li>
+                        <a href="{{ .RelPermalink }}">#{{ .File.BaseFileName }}:</a>
+                        {{ .LinkTitle }}
+                    </li>
+                {{ end }}
+            </ul>
+        {{ end }}
+    {{ end }}
+    {{ with where .Pages "Section" "posts" }}
+        {{ if gt (len .) 0 }}
+            <h2>Projects</h2>
+            <ul>
+                {{ range . }}
+                    <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }} </a></li>
+                {{ end }}
+            </ul>
+        {{ end }}
+    {{ end }}
+{{ end }}

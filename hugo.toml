@@ -1,9 +1,10 @@
 baseURL = 'https://denniscmartin.com/'
 languageCode = 'en-us'
 title = 'Dennis C. Martín'
-theme = 'mytheme'
+theme = 'journal'
 copyright = '© 2024 Dennis Concepción Martín'
 [params]
+    cdnBaseUrl = 'https://media.denniscmartin.com/'
     thumbnail = 'thumbnail.png'
     [params.author]
         name = 'Dennis Concepción Martín'
