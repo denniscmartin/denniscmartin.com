@@ -1,0 +1,9 @@
+name = 'Journal'
+license = 'MIT'
+licenselink = 'https://github.com/denniscmartin/denniscmartin.com/LICENSE.txt'
+homepage = 'https://github.com/denniscmartin/denniscmartin.com/themes/journal'
+demosite = 'https://denniscmartin.com'
+
+[author]
+  name = 'Dennis Concepción Martín'
+  homepage = 'https://denniscmartin.com'

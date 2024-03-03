@@ -1,11 +1,13 @@
 +++
 title = 'Home'
-date = 2024-02-11
+date = 2023-01-01T08:00:00-07:00
 draft = false
 +++
 
-I'm the solo developer behind [tinymacro.com](https://tinymacro.com) and other stuff. I sometimes finish my projects and share poorly researched ideas [here](https://denniscmartin.com), on [twitter](https://twitter.com/dennisconcep) and on [youtube](https://youtube.com/@denniscmartin).
+# Welcome to my journal.
 
-You can also find me on [github](https://github.com/denniscmartin).
+I'm a programmer currently base in Tenerife, Spain, trying to make a living
+building software for the web.
 
-Have a cool idea? Send me an email to dennis [at] denniscmartin [dot] com
+In this journal, I share my thoughts and notes
+on [#web](/tags/web), [#programming](/tags/programming), [#life](tags/life) and more.

@@ -1,7 +1,9 @@
 +++
 title = 'Introducción a las redes de ordenadores'
 date = 2023-09-23
+thumbnail = 'posts-intro-networking-thumbnail.png'
 draft = false
+tags = ['networking', 'internet']
 +++
 
 ## Contexto
