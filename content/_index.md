@@ -6,7 +6,7 @@ draft = false
 
 # Welcome to my journal.
 
-I'm a programmer currently base in Tenerife, Spain, trying to make a living
+I'm a programmer currently based in Tenerife, Spain, trying to make a living
 building software for the web.
 
 In this journal, I share my thoughts and notes
