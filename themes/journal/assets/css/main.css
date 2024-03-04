@@ -127,10 +127,13 @@ code {
 
 .highlight {
     margin: 25px 0;
+    width: 100%;
 }
 
 .highlight pre {
     padding: 15px;
+    overflow-y: scroll;
+    
 }
 
 p {
