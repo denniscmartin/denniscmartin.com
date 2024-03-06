@@ -10,12 +10,5 @@
         <header>{{ partial "header.html" . }}</header>
         <main class="{{ if .IsHome }}home{{ end }}">{{ block "main" . }}{{ end }}</main>
         <footer>{{ partial "footer.html" . }}</footer>
-        <!-- Cloudflare Web Analytics -->
-        <script
-            defer
-            src="https://static.cloudflareinsights.com/beacon.min.js"
-            data-cf-beacon='{"token": "c9dfbcaee609452986244c6ec20fb401"}'
-        ></script>
-        <!-- End Cloudflare Web Analytics -->
     </body>
 </html>
